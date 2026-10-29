@@ -1,57 +1,17 @@
-const display = document.getElementById("display");
+const output = document.querySelector(".text");
+const vals = document.querySelectorAll(".val");
+const clearBtn = document.querySelector(".AC");
+const deleteBtn = document.querySelector(".DEL");
+const equalBtn = document.querySelector(".equal");
 
-function addValue(value) {
-
-    if (display.value === "0" || display.value === "Error") {
-        display.value = value;
-    } else {
-        display.value += value;
-    }
-
-}
-
-function clearDisplay() {
-
-    display.value = "0";
-
-}
-
-function deleteNumber() {
-
-    display.value = display.value.slice(0, -1);
-
-    if (display.value === "") {
-        display.value = "0";
-    }
-
-}
-
-function calculate() {
-
-    try {
-
-        const expression = display.value;
-
-        if (!/^[0-9+\-*/%.()\s]+$/.test(expression)) {
-            throw new Error("Invalid input");
-        }
-
-        const result = Function(
-            '"use strict"; return (' + expression + ')'
-        )();
-
-        if (!Number.isFinite(result)) {
-            throw new Error("Invalid result");
-        }
-
-        display.value = String(
-            Math.round((result + Number.EPSILON) * 100000000) / 100000000
-        );
-
-    } catch (error) {
-
-        display.value = "Error";
-
-    }
-
-}
+vals.forEach((val) => {
+  val.addEventListener("click", () => {
+    output.value += val.value;
+  });
+});
+clearBtn.addEventListener("click", () => {
+  output.value += val.value;
+});
+deleteBtn.addEventListener("click", () => {
+  output.value = output.value.slice(0, -1);
+});
